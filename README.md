@@ -1,4 +1,4 @@
-# Automotive-Embedded-System
+# AutoSAR_Education_Project
 
 # Speed Control System for Vehicle with AUTOSAR and ISO 26262
 
