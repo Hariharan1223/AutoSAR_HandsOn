@@ -14,7 +14,86 @@ This project implements a vehicle speed monitoring and fuel injection control sy
 - Implementation of ISO 26262 functional safety concepts
 
 ## System Architecture
-[Brief description of the system architecture, possibly including a simplified diagram]
++--------------------------------------------------+
+|               Application SWCs                   |
++--------------------------------------------------+
+| +--------------------------------------------+   |
+| |            Speed Control System            |   |
+| |                Composition                 |   |
+| |                                            |   |
+| | +----------------------------------------+ |   |
+| | |         Speed Control App SWC          | |   |
+| | |                                        | |   |
+| | | Runnables:                             | |   |
+| | | - SpeedMonitoring                      | |   |
+| | | - SpeedCalculation                     | |   |
+| | | - InjectionCutoff                      | |   |
+| | | - DataStorage                          | |   |
+| | |                                        | |   |
+| | | Events:                                | |   |
+| | | - SpeedSensorData                      | |   |
+| | | - Overspeed                            | |   |
+| | | - DrivingCycleEnd                      | |   |
+| | |                                        | |   |
+| | | Ports:                                 | |   |
+| | | - SpeedData (R)                        | |   |
+| | | - ThresholdParam (C)                   | |   |
+| | | - InjectionCutoff (S)                  | |   |
+| | | - DiagnosticEvent (C)                  | |   |
+| | | - MaximumSpeed (S)                     | |   |
+| | +----------------------------------------+ |   |
+| |                                            |   |
+| | +----------------------------------------+ |   |
+| | |            Parameter SWC               | |   |
+| | |                                        | |   |
+| | | Port:                                  | |   |
+| | | - ThresholdParam (S)                   | |   |
+| | +----------------------------------------+ |   |
+| |                                            |   |
+| | +----------------------------------------+ |   |
+| | |           NVBlock SWC                  | |   |
+| | |             (Optional)                 | |   |
+| | | Port:                                  | |   |
+| | | - MaximumSpeed (R)                     | |   |
+| | +----------------------------------------+ |   |
+| +--------------------------------------------+   |
++==================================================+
+|                    RTE Layer                     |
++==================================================+
++--------------------------------------------------+
+|               Basic Software                     |
++--------------------------------------------------+
+| +--------------------------------------------+   |
+| |          Diagnostic Manager SWC            |   |
+| |                                            |   |
+| | Port:                                      |   |
+| | - DiagnosticEvent (S)                      |   |
+| +--------------------------------------------+   |
+|                                                  |
+| +--------------------------------------------+   |
+| |               NVM Manager                  |   |
+| |                 (Optional)                 |   |
+| +--------------------------------------------+   |
+|                                                  |
+| +--------------------------------------------+   |
+| |            ECU Abstraction SWC             |   |
+| |                                            |   |
+| | Port:                                      |   |
+| | - SpeedData (S)                            |   |
+| +--------------------------------------------+   |
+|                                                  |
+| +--------------------------------------------+   |
+| +--------------------------------------------+   |
++==================================================+
+|         Microcontroller Abstraction Layer        |
++==================================================+
+| +--------------------------------------------+   |
+| |               ADC Driver                   |   |
+| |               GPIO Driver                  |   |
+| |               GPT Driver                   |   |
+| |               Memory Driver                |   |
+| +--------------------------------------------+   |
+
 
 ## AUTOSAR Components
 - Speed Control App SWC
