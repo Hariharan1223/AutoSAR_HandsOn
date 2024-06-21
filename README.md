@@ -17,8 +17,8 @@ This project implements a vehicle speed monitoring and fuel injection control sy
 
 
 
-## AUTOSAR C![Screenshot 2024-06-20 204709](https://github.com/Hariharan1223/AutoSAR_Education_Project/assets/106650889/c40cef16-8c48-4d4e-ae2b-fd3fa56fa875)
-omponents
+![Screenshot 2024-06-20 204709](https://github.com/Hariharan1223/AutoSAR_Education_Project/assets/106650889/c40cef16-8c48-4d4e-ae2b-fd3fa56fa875)
+## AUTOSAR Components
 - Speed Control App SWC
 - Parameter SWC
 - NVBlock SWC (optional)
