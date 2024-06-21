@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<AUTOSAR xmlns="http://autosar.org/schema/r4.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://autosar.org/schema/r4.0 file:///C:/Users/HARIHARAN/Documents/SEGGER%20Embedded%20Studio%20for%20ARM%20Projects/embedded/CAN/Autosar%20Architecture%20(Learn%20from%20Scratch%20with%20Demo)/vehicle%20speed%20monitoring%20and%20fuel%20injection%20control%20system/AUTOSAR_MMOD_XMLSchema/AUTOSAR_00046.xsd">
+   <AR-PACKAGES>
+      <AR-PACKAGE>
+         <SHORT-NAME>GptConfig</SHORT-NAME>
+         <ELEMENTS>
+            <ECUC-MODULE-CONFIGURATION-VALUES>
+               <SHORT-NAME>GptModuleConfiguration</SHORT-NAME>
+               <DEFINITION-REF DEST="ECUC-MODULE-DEF">/AUTOSAR/EcucDefs/Gpt</DEFINITION-REF>
+               <CONTAINERS>
+                  <ECUC-CONTAINER-VALUE>
+                     <SHORT-NAME>GptGeneral</SHORT-NAME>
+                     <DEFINITION-REF DEST="ECUC-PARAM-CONF-CONTAINER-DEF">/AUTOSAR/EcucDefs/Gpt/GptGeneral</DEFINITION-REF>
+                     <PARAMETER-VALUES>
+                        <ECUC-NUMERICAL-PARAM-VALUE>
+                           <DEFINITION-REF DEST="ECUC-BOOLEAN-PARAM-DEF">/AUTOSAR/EcucDefs/Gpt/GptGeneral/GptDeviceEnable</DEFINITION-REF>
+                           <VALUE>true</VALUE>
+                        </ECUC-NUMERICAL-PARAM-VALUE>
+                     </PARAMETER-VALUES>
+                  </ECUC-CONTAINER-VALUE>
+                  <ECUC-CONTAINER-VALUE>
+                     <SHORT-NAME>GptChannelConfig</SHORT-NAME>
+                     <DEFINITION-REF DEST="ECUC-PARAM-CONF-CONTAINER-DEF">/AUTOSAR/EcucDefs/Gpt/GptChannelConfig</DEFINITION-REF>
+                     <SUB-CONTAINERS>
+                        <ECUC-CONTAINER-VALUE>
+                           <SHORT-NAME>GptChannel</SHORT-NAME>
+                           <DEFINITION-REF DEST="ECUC-PARAM-CONF-CONTAINER-DEF">/AUTOSAR/EcucDefs/Gpt/GptChannelConfig/GptChannel</DEFINITION-REF>
+                           <PARAMETER-VALUES>
+                              <ECUC-NUMERICAL-PARAM-VALUE>
+                                 <DEFINITION-REF DEST="ECUC-INTEGER-PARAM-DEF">/AUTOSAR/EcucDefs/Gpt/GptChannelConfig/GptChannel/GptChannelId</DEFINITION-REF>
+                                 <VALUE>0</VALUE>
+                              </ECUC-NUMERICAL-PARAM-VALUE>
+                              <ECUC-NUMERICAL-PARAM-VALUE>
+                                 <DEFINITION-REF DEST="ECUC-INTEGER-PARAM-DEF">/AUTOSAR/EcucDefs/Gpt/GptChannelConfig/GptChannel/GptPeriod</DEFINITION-REF>
+                                 <VALUE>1000</VALUE>
+                                 <!-- Example period value, adjust as needed -->
+                              </ECUC-NUMERICAL-PARAM-VALUE>
+                           </PARAMETER-VALUES>
+                        </ECUC-CONTAINER-VALUE>
+                     </SUB-CONTAINERS>
+                  </ECUC-CONTAINER-VALUE>
+               </CONTAINERS>
+            </ECUC-MODULE-CONFIGURATION-VALUES>
+         </ELEMENTS>
+      </AR-PACKAGE>
+   </AR-PACKAGES>
+</AUTOSAR>

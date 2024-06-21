@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<AUTOSAR xmlns="http://autosar.org/schema/r4.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://autosar.org/schema/r4.0 AUTOSAR_00046.xsd">
+   <AR-PACKAGES>
+      <AR-PACKAGE>
+         <SHORT-NAME>SWC</SHORT-NAME>
+         <ELEMENTS>
+            <NV-BLOCK-SW-COMPONENT-TYPE>
+               <SHORT-NAME>NVBlock_SWC</SHORT-NAME>
+               <PORTS>
+                  <R-PORT-PROTOTYPE>
+                     <SHORT-NAME>RP_MaximumSpeed</SHORT-NAME>
+                     <REQUIRED-INTERFACE-TREF DEST="NV-DATA-INTERFACE">/Interfaces/I_NVMaxSpeed</REQUIRED-INTERFACE-TREF>
+                  </R-PORT-PROTOTYPE>
+               </PORTS>
+               <INTERNAL-BEHAVIORS>
+                  <SWC-INTERNAL-BEHAVIOR>
+                     <SHORT-NAME>IB_NVBlockBehavior</SHORT-NAME>
+                     <EVENTS>
+                        <TIMING-EVENT>
+                           <SHORT-NAME>DrivingCycleEndEvent</SHORT-NAME>
+                           <PERIOD>0</PERIOD> <!-- Event-triggered -->
+                        </TIMING-EVENT>
+                     </EVENTS>
+                     <RUNNABLE-ENTITIES>
+                        <RUNNABLE-ENTITY>
+                           <SHORT-NAME>StoreMaximumSpeed</SHORT-NAME>
+                           <CAN-BE-INVOKED-CONCURRENTLY>false</CAN-BE-INVOKED-CONCURRENTLY>
+                           <MINIMUM-START-INTERVAL>0</MINIMUM-START-INTERVAL>
+                           <EVENT-TO-RUNNABLE-MAPPINGS>
+                              <EVENT-TO-RUNNABLE-MAPPING>
+                                 <EVENT-TREF DEST="TIMING-EVENT">/SWC/NVBlock_SWC/IB_NVBlockBehavior/DrivingCycleEndEvent</EVENT-TREF>
+                              </EVENT-TO-RUNNABLE-MAPPING>
+                           </EVENT-TO-RUNNABLE-MAPPINGS>
+                        </RUNNABLE-ENTITY>
+                     </RUNNABLE-ENTITIES>
+                  </SWC-INTERNAL-BEHAVIOR>
+               </INTERNAL-BEHAVIORS>
+            </NV-BLOCK-SW-COMPONENT-TYPE>
+         </ELEMENTS>
+      </AR-PACKAGE>
+   </AR-PACKAGES>
+</AUTOSAR>

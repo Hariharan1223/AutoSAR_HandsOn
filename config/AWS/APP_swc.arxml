@@ -1,0 +1,144 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<AUTOSAR xmlns="http://autosar.org/schema/r4.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://autosar.org/schema/r4.0 file:///C:/Users/HARIHARAN/Documents/SEGGER%20Embedded%20Studio%20for%20ARM%20Projects/embedded/CAN/Autosar%20Architecture%20(Learn%20from%20Scratch%20with%20Demo)/vehicle%20speed%20monitoring%20and%20fuel%20injection%20control%20system/AUTOSAR_MMOD_XMLSchema/AUTOSAR_00046.xsd">
+   <AR-PACKAGES>
+      <AR-PACKAGE>
+         <SHORT-NAME>APP_swc</SHORT-NAME>
+         <ELEMENTS>
+            <APPLICATION-SW-COMPONENT-TYPE>
+               <SHORT-NAME>speed_app_swc</SHORT-NAME>
+               <PORTS>
+                  <R-PORT-PROTOTYPE>
+                     <SHORT-NAME>SpeedData</SHORT-NAME>
+                     <REQUIRED-INTERFACE-TREF DEST="SENDER-RECEIVER-INTERFACE">/Interfaces/I_SpeedData</REQUIRED-INTERFACE-TREF>
+                  </R-PORT-PROTOTYPE>
+                  <R-PORT-PROTOTYPE>
+                     <SHORT-NAME>ThresholdParam</SHORT-NAME>
+                     <REQUIRED-INTERFACE-TREF DEST="PARAMETER-INTERFACE">/Interfaces/I_ThresholdParam</REQUIRED-INTERFACE-TREF>
+                  </R-PORT-PROTOTYPE>
+                  <P-PORT-PROTOTYPE>
+                     <SHORT-NAME>InjectionCutoff</SHORT-NAME>
+                     <PROVIDED-INTERFACE-TREF DEST="SENDER-RECEIVER-INTERFACE">/Interfaces/I_InjectionCutoff</PROVIDED-INTERFACE-TREF>
+                  </P-PORT-PROTOTYPE>
+                  <R-PORT-PROTOTYPE>
+                     <SHORT-NAME>DiagRequest</SHORT-NAME>
+                     <REQUIRED-INTERFACE-TREF DEST="CLIENT-SERVER-INTERFACE">/Interfaces/I_DiagnosticRequest</REQUIRED-INTERFACE-TREF>
+                  </R-PORT-PROTOTYPE>
+                  <P-PORT-PROTOTYPE>
+                     <SHORT-NAME>DiagResponse</SHORT-NAME>
+                     <PROVIDED-INTERFACE-TREF DEST="CLIENT-SERVER-INTERFACE">/Interfaces/I_DiagnosticResponse</PROVIDED-INTERFACE-TREF>
+                  </P-PORT-PROTOTYPE>
+                  <P-PORT-PROTOTYPE>
+                     <SHORT-NAME>MaximumSpeed</SHORT-NAME>
+                     <PROVIDED-INTERFACE-TREF DEST="NV-DATA-INTERFACE">/Interfaces/I_NVMaxSpeed</PROVIDED-INTERFACE-TREF>
+                  </P-PORT-PROTOTYPE>
+               </PORTS>
+               <INTERNAL-BEHAVIORS>
+                  <SWC-INTERNAL-BEHAVIOR>
+                     <SHORT-NAME>IB_App_swc</SHORT-NAME>
+                     <EVENTS>
+                        <TIMING-EVENT>
+                           <SHORT-NAME>SpeedSensorData</SHORT-NAME>
+                           <START-ON-EVENT-REF DEST="RUNNABLE-ENTITY">/speed_app_swc/IB_App_swc/SpeedMonitoring</START-ON-EVENT-REF>
+                        </TIMING-EVENT>
+                        <TIMING-EVENT>
+                           <SHORT-NAME>Overspeed</SHORT-NAME>
+                           <START-ON-EVENT-REF DEST="RUNNABLE-ENTITY">/speed_app_swc/IB_App_swc/InjectionCutoff</START-ON-EVENT-REF>
+                        </TIMING-EVENT>
+                        <TIMING-EVENT>
+                           <SHORT-NAME>DiagnosticRequestEvent</SHORT-NAME>
+                           <START-ON-EVENT-REF DEST="RUNNABLE-ENTITY">/APP_SWC/IB_App_swc/DiagnosticRequestHandler</START-ON-EVENT-REF>
+                        </TIMING-EVENT>
+                        <TIMING-EVENT>
+                           <SHORT-NAME>DrivingCycleEnd</SHORT-NAME>
+                           <START-ON-EVENT-REF DEST="RUNNABLE-ENTITY">/speed_app_swc/IB_App_swc/DataStorage</START-ON-EVENT-REF>
+                        </TIMING-EVENT>
+                     </EVENTS>
+                     <RUNNABLES>
+                        <RUNNABLE-ENTITY>
+                           <SHORT-NAME>SpeedMonitoring</SHORT-NAME>
+                           <DATA-RECEIVE-POINT-BY-ARGUMENTS>
+                              <VARIABLE-ACCESS>
+                                 <SHORT-NAME>VA_Speed</SHORT-NAME>
+                                 <ACCESSED-VARIABLE>
+                                    <AUTOSAR-VARIABLE-IREF>
+                                       <PORT-PROTOTYPE-REF DEST="R-PORT-PROTOTYPE">/speed_app_swc/SpeedData</PORT-PROTOTYPE-REF>
+                                       <TARGET-DATA-PROTOTYPE-REF DEST="VARIABLE-DATA-PROTOTYPE">/Interfaces/I_SpeedData/VehicleSpeed</TARGET-DATA-PROTOTYPE-REF>
+                                    </AUTOSAR-VARIABLE-IREF>
+                                 </ACCESSED-VARIABLE>
+                              </VARIABLE-ACCESS>
+                           </DATA-RECEIVE-POINT-BY-ARGUMENTS>
+                           <SYMBOL>vehical_spped_monitor</SYMBOL>
+                        </RUNNABLE-ENTITY>
+                        <RUNNABLE-ENTITY>
+                           <SHORT-NAME>SpeedCalculation</SHORT-NAME>
+                           <DATA-RECEIVE-POINT-BY-ARGUMENTS>
+                              <VARIABLE-ACCESS>
+                                 <SHORT-NAME>VA_speed_calculate</SHORT-NAME>
+                                 <ACCESSED-VARIABLE>
+                                    <AUTOSAR-VARIABLE-IREF>
+                                       <PORT-PROTOTYPE-REF DEST="R-PORT-PROTOTYPE">/speed_app_swc/ThresholdParam</PORT-PROTOTYPE-REF>
+                                       <TARGET-DATA-PROTOTYPE-REF DEST="PARAMETER-DATA-PROTOTYPE">/Interfaces/I_ThresholdParam/SpeedThreshold</TARGET-DATA-PROTOTYPE-REF>
+                                    </AUTOSAR-VARIABLE-IREF>
+                                 </ACCESSED-VARIABLE>
+                              </VARIABLE-ACCESS>
+                           </DATA-RECEIVE-POINT-BY-ARGUMENTS>
+                           <SYMBOL>vehical_speed_calculation</SYMBOL>
+                        </RUNNABLE-ENTITY>
+                        <RUNNABLE-ENTITY>
+                           <SHORT-NAME>DiagnosticRequestHandler</SHORT-NAME>
+                           <SERVER-CALL-POINTS>
+                              <SYNCHRONOUS-SERVER-CALL-POINT>
+                                 <SHORT-NAME>SC_SendDiagRequest</SHORT-NAME>
+                                 <OPERATION-IREF>
+                                    <CONTEXT-R-PORT-REF DEST="R-PORT-PROTOTYPE">/speed_app_swc/DiagRequest</CONTEXT-R-PORT-REF>
+                                    <TARGET-REQUIRED-OPERATION-REF DEST="CLIENT-SERVER-OPERATION">/Interfaces/I_DiagnosticRequest/SendDiagnosticRequest</TARGET-REQUIRED-OPERATION-REF>
+                                 </OPERATION-IREF>
+                              </SYNCHRONOUS-SERVER-CALL-POINT>
+                              <SYNCHRONOUS-SERVER-CALL-POINT>
+                                 <SHORT-NAME>SC_SendDiagResponse</SHORT-NAME>
+                                 <OPERATION-IREF>
+                                    <CONTEXT-R-PORT-REF DEST="R-PORT-PROTOTYPE">/speed_app_swc/DiagResponse</CONTEXT-R-PORT-REF>
+                                    <TARGET-REQUIRED-OPERATION-REF DEST="CLIENT-SERVER-OPERATION">/Interfaces/I_DiagnosticResponse/SendDiagnosticResponse</TARGET-REQUIRED-OPERATION-REF>
+                                 </OPERATION-IREF>
+                              </SYNCHRONOUS-SERVER-CALL-POINT>
+                           </SERVER-CALL-POINTS>
+                           <SYMBOL>diagnostic_process</SYMBOL>
+                        </RUNNABLE-ENTITY>
+                        <RUNNABLE-ENTITY>
+                           <SHORT-NAME>InjectionCutoff</SHORT-NAME>
+                           <DATA-RECEIVE-POINT-BY-ARGUMENTS>
+                              <VARIABLE-ACCESS>
+                                 <SHORT-NAME>VA_fuel_cutoff</SHORT-NAME>
+                                 <ACCESSED-VARIABLE>
+                                    <AUTOSAR-VARIABLE-IREF>
+                                       <PORT-PROTOTYPE-REF DEST="R-PORT-PROTOTYPE">/speed_app_swc/InjectionCutoff</PORT-PROTOTYPE-REF>
+                                       <TARGET-DATA-PROTOTYPE-REF DEST="VARIABLE-DATA-PROTOTYPE">/Interfaces/I_InjectionCutoff/InjectionCutoffCommand</TARGET-DATA-PROTOTYPE-REF>
+                                    </AUTOSAR-VARIABLE-IREF>
+                                 </ACCESSED-VARIABLE>
+                              </VARIABLE-ACCESS>
+                           </DATA-RECEIVE-POINT-BY-ARGUMENTS>
+                           <SYMBOL>Fuel_injuction_cutoff</SYMBOL>
+                        </RUNNABLE-ENTITY>
+                        <RUNNABLE-ENTITY>
+                           <SHORT-NAME>DataStorage</SHORT-NAME>
+                           <DATA-RECEIVE-POINT-BY-ARGUMENTS>
+                              <VARIABLE-ACCESS>
+                                 <SHORT-NAME>VA_Max_Speed</SHORT-NAME>
+                                 <ACCESSED-VARIABLE>
+                                    <AUTOSAR-VARIABLE-IREF>
+                                       <PORT-PROTOTYPE-REF DEST="P-PORT-PROTOTYPE">/speed_app_swc/MaximumSpeed</PORT-PROTOTYPE-REF>
+                                       <TARGET-DATA-PROTOTYPE-REF DEST="VARIABLE-DATA-PROTOTYPE">/Interfaces/I_NVMaxSpeed/NVMaxSpeed</TARGET-DATA-PROTOTYPE-REF>
+                                    </AUTOSAR-VARIABLE-IREF>
+                                 </ACCESSED-VARIABLE>
+                              </VARIABLE-ACCESS>
+                           </DATA-RECEIVE-POINT-BY-ARGUMENTS>
+                           <SYMBOL>store_maximum_speed</SYMBOL>
+                        </RUNNABLE-ENTITY>
+                     </RUNNABLES>
+                  </SWC-INTERNAL-BEHAVIOR>
+               </INTERNAL-BEHAVIORS>
+            </APPLICATION-SW-COMPONENT-TYPE>
+         </ELEMENTS>
+      </AR-PACKAGE>
+   </AR-PACKAGES>
+</AUTOSAR>

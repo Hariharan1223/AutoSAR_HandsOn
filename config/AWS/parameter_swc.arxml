@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<AUTOSAR xmlns="http://autosar.org/schema/r4.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://autosar.org/schema/r4.0 file:///C:/Users/HARIHARAN/Documents/SEGGER%20Embedded%20Studio%20for%20ARM%20Projects/embedded/CAN/Autosar%20Architecture%20(Learn%20from%20Scratch%20with%20Demo)/vehicle%20speed%20monitoring%20and%20fuel%20injection%20control%20system/AUTOSAR_MMOD_XMLSchema/AUTOSAR_00046.xsd">
+   <AR-PACKAGES>
+      <AR-PACKAGE>
+         <SHORT-NAME>SWC</SHORT-NAME>
+         <ELEMENTS>
+            <PARAMETER-SW-COMPONENT-TYPE>
+               <SHORT-NAME>Parameter_SWC</SHORT-NAME>
+               <PORTS>
+                  <P-PORT-PROTOTYPE>
+                     <SHORT-NAME>PP_ThresholdParam</SHORT-NAME>
+                     <PROVIDED-INTERFACE-TREF DEST="PARAMETER-INTERFACE">/Interfaces/I_ThresholdParam</PROVIDED-INTERFACE-TREF>
+                  </P-PORT-PROTOTYPE>
+               </PORTS>
+               <PARAMETERS>
+                  <PARAMETER-DATA-PROTOTYPE>
+                     <SHORT-NAME>SpeedThreshold</SHORT-NAME>
+                     <TYPE-TREF DEST="IMPLEMENTATION-DATA-TYPE">/AUTOSAR_PlatformTypes/ImplementationDataTypes/float32</TYPE-TREF>
+                     <SW-DATA-DEF-PROPS>
+                        <SW-VALUE-CONSTRAINT>
+                           <MIN-VALUE>0.0</MIN-VALUE>
+                           <MAX-VALUE>200.0</MAX-VALUE> <!-- Example: Speed threshold range from 0 to 200 km/h -->
+                        </SW-VALUE-CONSTRAINT>
+                     </SW-DATA-DEF-PROPS>
+                  </PARAMETER-DATA-PROTOTYPE>
+               </PARAMETERS>
+            </PARAMETER-SW-COMPONENT-TYPE>
+         </ELEMENTS>
+      </AR-PACKAGE>
+   </AR-PACKAGES>
+</AUTOSAR>
