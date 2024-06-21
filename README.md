@@ -17,9 +17,6 @@ This project implements a vehicle speed monitoring and fuel injection control sy
 Below is a simplified landscape diagram of our Speed Control System architecture using AUTOSAR:
 ![Screenshot 2024-06-20 204709](https://github.com/Hariharan1223/AutoSAR_Education_Project/assets/106650889/c40cef16-8c48-4d4e-ae2b-fd3fa56fa875)
 
-![Uploading WhatsApp Image 2024-06-21 at 13.23.36_b09fafc9.jpg…]()
-
-
 This diagram illustrates the layered architecture of our AUTOSAR-based system:
 - The Application Layer contains the main software components (SWCs) for speed control, 
   parameter management, and non-volatile storage.
