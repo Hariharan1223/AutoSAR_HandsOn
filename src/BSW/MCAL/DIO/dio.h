@@ -5,8 +5,8 @@
 #ifndef DIO_H
 #define DIO_H
 
-typedef unsigned int Dio_LevelType 
-typedef unsigned int Dio_ChannelType
+typedef unsigned int Dio_LevelType;
+typedef unsigned int Dio_ChannelType;
 typedef unsigned int Std_ReturnType;
 
 /* Physical state 0V */
