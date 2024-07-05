@@ -3,7 +3,7 @@
  * @brief adc driver implementation
  */
 #include "adc.h"
-
+#include "Std_Types.h"
 Std_ReturnType Adc_Init(void)
 {
 	/* Enable the ADC peripheral */
