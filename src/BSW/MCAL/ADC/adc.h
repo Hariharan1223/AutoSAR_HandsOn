@@ -2,11 +2,13 @@
  * @file adc.h
  * @brief adc driver header file
  */
+
 #ifndef ADC_H
 #define ADC_H
 
-typedef unsigned int Adc_GroupType
-typedef unsigned int Adc_ValueGroupType
+typedef unsigned int Adc_GroupType;
+typedef unsigned int Adc_ValueGroupType;
+typedef unsigned int Std_ReturnType;
 
 #define ADC_BASE_ADDRESS 0x40000000 /* Assuming the ADC base address */
 
@@ -19,8 +21,14 @@ typedef unsigned int Adc_ValueGroupType
 /* Data Register */
 #define ADC_DR   (*((volatile uint32_t *)(ADC_BASE_ADDRESS + 0x08))) 
 /* Sampling Time Register */
-#define ADC_SMPR (*((volatile uint32_t *)(ADC_BASE_ADDRESS + 0x0C))) 
+#define ADC_SMPR (*((volatile uint32_t *)(ADC_BASE_ADDRESS + 0x0C)))
 
+/* adc status types */ 
+typedef enum {
+    ADC_IDLE,
+    ADC_BUSY,
+    ADC_COMPLETED
+} Adc_StatusType;
 
 /* ADC Control Register Bits */
 
@@ -51,6 +59,6 @@ Std_ReturnType Adc_ReadGroup(Adc_GroupType Group, Adc_ValueGroupType* DataBuffer
 Adc_StatusType Adc_GetGroupStatus(Adc_GroupType Group);
 
 /* Function to report errors */
-void Adc_ReportError(uint8_t ErrorCode);
+void Adc_ReportError(unsigned int ErrorCode);
 
 #endif /*ADC_H*/
