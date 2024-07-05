@@ -1,12 +1,14 @@
-/* gpt.h */
+/**
+ * @file gpt.h
+ * @brief gpt driver header file
+ */
 #ifndef GPT_H
 #define GPT_H
 
-#include <stdint.h>
-#include "Std_Types.h" // Include the standard types header file
+#include "Std_Types.h"
 
-/* Define the base address of the GPT peripheral */
-#define GPT_BASE_ADDRESS 0x40012C00
+
+#define GPT_BASE_ADDRESS 0x40012C00 
 
 /* Define the GPT Control Register 1 */
 #define GPT_CR1   (*((volatile uint32_t *)(GPT_BASE_ADDRESS + 0x00)))
@@ -23,11 +25,9 @@
 /* Define the maximum number of GPT channels */
 #define GPT_MAX_CHANNELS 4
 
-/* Define the GPT channel type */
-typedef unsigned int Gpt_ChannelType
-
-/* Define the GPT value type */
-typedef unsigned int Gpt_ValueType
+typedef unsigned int Gpt_ChannelType;
+typedef unsigned int Gpt_ValueType;
+typedef unsigned int Std_ReturnType;
 
 /* Define the callback function type for GPT */
 typedef void (*Gpt_CallbackType)(void);
@@ -47,6 +47,8 @@ typedef struct {
 void Gpt_Init(const Gpt_ConfigType* ConfigPtr);
 void Gpt_StartTimer(Gpt_ChannelType Channel, Gpt_ValueType Value);
 void Gpt_StopTimer(Gpt_ChannelType Channel);
+void Gpt_SetCallback(Gpt_ChannelType Channel, Gpt_CallbackType Callback);
 void Gpt_ReportError(uint8_t ErrorCode);
+void GPT_IRQHandler(void);
 
 #endif /* GPT_H */
