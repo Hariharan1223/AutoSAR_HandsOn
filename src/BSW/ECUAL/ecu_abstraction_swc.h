@@ -1,31 +1,48 @@
 /**
- * @file ecuabstraction_sws.h
+ * @file ecu_abstraction_swc.h
  * @brief Header file for ECU Abstraction Software Component
  */
 
-#ifndef ECUABSTRACTION_SWS_H
-#define ECUABSTRACTION_SWS_H
+#ifndef ECU_ABSTRACTION_SWC_H
+#define ECU_ABSTRACTION_SWC_H
 
 #include "Std_Types.h"
+#include "Adc.h"
+#include "Gpt.h"
 
-/* Error Codes */
-#define ECUABSTRACTION_E_DIO_INIT_FAILED         0x01
-#define ECUABSTRACTION_E_GPT_INIT_FAILED         0x02
-#define ECUABSTRACTION_E_TIMER_FAILED            0x03
-#define ECUABSTRACTION_E_UNKNOWN_DIAG_EVENT      0x04
-#define ECUABSTRACTION_E_NVBLOCK_READ_FAILED     0x05
-#define ECUABSTRACTION_E_NVBLOCK_NOT_AVAILABLE  0x06
+/* Module ID for error reporting */
+#define MODULE_ID_ECUABSTRACTION 123
 
-/* Function IDs */
-#define ECUABSTRACTION_INIT_ID                   0x01
-#define ECUABSTRACTION_GETVELOCITY_ID            0x02
-#define ECUABSTRACTION_GETMAXSPEED_ID            0x03
-#define ECUABSTRACTION_HANDLEDIAGEVENT_ID        0x04
+/* ECU Abstraction error codes */
+#define ECUABSTRACTION_E_PARAM_POINTER     0x01
+#define ECUABSTRACTION_E_ADC_TIMEOUT       0x02
+#define ECUABSTRACTION_E_ADC_READ_FAILED   0x03
 
-/* Function prototypes */
+/* Conversion constant for speed sensor */
+#define SPEED_SENSOR_CONSTANT              0.036f
+
+/* ADC channel for speed sensor */
+#define SPEED_SENSOR_ADC_CHANNEL           5
+
+/**
+ * @brief Initialize the ECU Abstraction module
+ * @return Std_ReturnType E_OK if successful, E_NOT_OK if an error occurs
+ */
 Std_ReturnType EcuAbstraction_Init(void);
-float EcuAbstraction_GetVehicleSpeed(void);
-float EcuAbstraction_GetMaximumSpeed(void);
-void EcuAbstraction_HandleDiagnosticEvent(DiagnosticEventType diagnosticEvent);
 
-#endif /* ECUABSTRACTION_SWS_H */
+/**
+ * @brief Reads the vehicle speed from the digital Hall-effect speed sensor
+ * @return Vehicle speed in kilometers per hour (km/h), or -1.0f if an error occurs
+ */
+float EcuAbstraction_GetVehicleSpeed(void);
+
+/**
+ * @brief Gets the latest vehicle speed
+ * @return Latest vehicle speed in kilometers per hour (km/h)
+ */
+float EcuAbstraction_GetLatestSpeed(void);
+
+/* Function to report errors */
+void Det_ReportError(uint16 ModuleId, uint8 InstanceId, uint8 ApiId, uint8 ErrorId);
+
+#endif /* ECU_ABSTRACTION_SWC_H */
