@@ -1,32 +1,25 @@
-/* memory.h */
+/**
+ * @file memory.h
+ * @brief Header file for EEPROM driver
+ */
+
 #ifndef MEMORY_H
 #define MEMORY_H
 
-#include "Std_Types.h" // Include the standard types header file
+#include "Std_Types.h"
 
-/* Memory instance ID */
-typedef uint8_t Mem_InstanceIdType;
+#define MEMIF_UNINIT 0x00
+#define MEMIF_IDLE 0x01
+#define MEMIF_BUSY 0x02
+#define MEMIF_JOB_OK 0x03
 
-/* Memory address type */
-typedef uint32_t Mem_AddressType;
+typedef uint8 MemIf_StatusType;
+typedef uint8 MemIf_JobResultType;
+typedef uint32 Eep_AddressType;
+typedef uint32 Eep_LengthType;
 
-/* Memory data type */
-typedef uint8_t Mem_DataType;
-
-/* Memory length type */
-typedef uint16_t Mem_LengthType;
-
-/* Return type for memory operations */
-typedef uint8_t Std_ReturnType;
-
-/* Error codes for memory operations */
-#define MEM_E_OK               0x00
-#define MEM_E_WRITE_FAILED     0x01
-#define MEM_E_READ_FAILED      0x02
-#define MEM_E_NULL_POINTER     0x03 // New error code for null pointer
-
-/* Function prototypes */
-Std_ReturnType Mem_Read(Mem_InstanceIdType instanceId, Mem_AddressType sourceAddress, Mem_DataType* destinationDataPtr, Mem_LengthType length);
-Std_ReturnType Mem_Write(Mem_InstanceIdType instanceId, Mem_AddressType targetAddress, const Mem_DataType* sourceDataPtr, Mem_LengthType length);
+void Eep_Init(void);
+Std_ReturnType Eep_Read(Eep_AddressType Address, uint8* DataBufferPtr, Eep_LengthType Length);
+Std_ReturnType Eep_Write(Eep_AddressType Address, const uint8* DataBufferPtr, Eep_LengthType Length);
 
 #endif /* MEMORY_H */
